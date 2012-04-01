@@ -1,0 +1,33 @@
+.navbar
+  .navbar-inner
+    .container
+      %a.brand{:href => GALLERY_NAMESPACE} Gallery
+
+    %ul.breadcrumb
+      - breadcrumbs = @directory.breadcrumbs
+      - breadcrumbs.each_with_index do |item, index|
+        - css_class = index == breadcrumbs.size - 1 ? 'active' : nil
+        %li{:class => css_class}
+          = link_to item.title, item.original_url
+          %span.divider /
+
+.row-fluid
+  .span12
+    %ul.thumbnails
+      - if @directory.can_back?
+        %li.span2
+          %a.thumbnail{:href => @directory.back_item.original_url}
+            = image_tag @directory.back_item.thumbnail_url, :size => '128x128'
+            %h6 &#x2022;&#x2022;
+
+      - @directory.directory_items.each do |item|
+        %li.span2
+          %a.thumbnail{:href => item.original_url}
+            = image_tag item.thumbnail_url, :size => '128x128'
+            %h6{:title => item.title}= item.title
+
+      - @directory.picture_items.each do |item|
+        %li.span2
+          %a.thumbnail{:href => item.original_url}
+            = image_tag item.thumbnail_url, :size => '128x128'
+            %h6{:title => item.title}= item.title
