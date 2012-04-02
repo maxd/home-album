@@ -8,6 +8,10 @@ module FileSystemItemDecorator
     PathExtensions.normalize(File.join(namespace, relative_path))
   end
 
+  def resize_1024x768_url
+    PathExtensions.normalize(File.join('/resize_1024x768', relative_path))
+  end
+
   def thumbnail_url
     if File.directory? @path
       ActionController::Base.helpers.image_path('directory.png')
@@ -15,7 +19,7 @@ module FileSystemItemDecorator
       relative_directory = File.dirname(relative_path)
       file_name = File.basename(relative_path)
 
-      File.join(PICTURES_NAMESPACE, File.join(relative_directory, 'thumbnail', file_name))
+      File.join('/resize_128x128', relative_path)
     end
   end
 
