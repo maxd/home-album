@@ -14,3 +14,7 @@ group :assets do
   gem 'less-rails',               '~>2.2.3'
   gem 'less-rails-bootstrap',     '~>2.1.0'
 end
+
+group :development do
+  gem 'rmagick',                  '~>2.13.1'
+end
