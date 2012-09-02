@@ -27,7 +27,7 @@ class FileSystemItem
   end
 
   def video_items
-    videos_pattern = File.join(@path, '*.{avi}')
+    videos_pattern = File.join(@path, '*.{avi,mov}')
     get_items videos_pattern
   end
 
