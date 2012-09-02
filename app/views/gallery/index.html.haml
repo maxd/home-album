@@ -34,18 +34,23 @@
 
       - @directory.video_items.each do |item|
         %li.span2
-          %a.thumbnail{:href => item.original_url, :rel => 'album', :class => 'fancybox'}
+          %a.thumbnail{:href => '#player', :rel => 'album', :class => 'fancybox', :data => { :href => item.original_url, :preview => item.resize_1024x768_url }}
             = image_tag item.thumbnail_url, :size => '128x128'
             %h6{:title => item.title}= item.title
 
+    #player{:style => 'display: none; width: 100%; height: 100%; overflow: hidden;'}
+
 :javascript
   $(document).ready(function() {
+    $f('player', '/flowplayer/flowplayer-3.2.14.swf');
+
   	$(".fancybox").fancybox({
       openEffect	: 'none',
       closeEffect	: 'none',
       prevEffect    : 'none',
       nextEffect    : 'none',
       mouseWheel    : true,
+      autoSize: false,
       helpers	: {
         title	: {
           type: 'outside'
@@ -60,6 +65,21 @@
           width	 : 128,
           height : 128
         }
+      },
+      beforeLoad: function() {
+        var data_href = $(this.element).attr('data-href');
+        var data_preview = $(this.element).attr('data-preview');
+        if (data_href) {
+          $f('player').getConfig()['canvas'] = { backgroundImage: data_preview }
+          $f('player').play(data_href);
+        } else {
+          $f('player').stop();
+        }
+        return true;
+      },
+      afterClose: function() {
+        $f('player').stop();
+        return true;
       }
   	});
   });
