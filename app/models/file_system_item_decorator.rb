@@ -16,9 +16,6 @@ module FileSystemItemDecorator
     if File.directory? @path
       ActionController::Base.helpers.image_path('directory.png')
     else
-      relative_directory = File.dirname(relative_path)
-      file_name = File.basename(relative_path)
-
       File.join('/resize_128x128', relative_path)
     end
   end
