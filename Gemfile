@@ -17,4 +17,9 @@ end
 
 group :development do
   gem 'rmagick',                  '~>2.13.1'
+
+  gem 'capistrano',               '~>2.12.0'
+  gem 'rvm-capistrano',           '~>1.2.5'
+  gem 'capistrano-ext',           '~>1.2.1'
+  gem 'capistrano_colors',        '~>0.5.5'
 end
